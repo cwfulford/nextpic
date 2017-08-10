@@ -1,0 +1,26 @@
+#!/bin/bash
+# $Id: nextpic,v 1.1 2017/08/10 16:58:56 fulford Exp fulford $
+# $Source: /src/admin/usr/local/etc/RCS/nextpic,v $
+# $Revision: 1.1 $
+# Author C W Fulford.
+# Copyright 2016 (c) C W Fulford.
+# Licensed for public use under the LGPL, .
+# For assistance contact fulford@fulford.net 0793 572 8612
+########################################################################
+cmd=`basename $0`
+ver=`echo "$Id: nextpic,v 1.1 2017/08/10 16:58:56 fulford Exp fulford $"|awk '{print $3,$4,$5}'`
+syntax="$cmd [-c <configfile>] [-d] [-v]|-V"
+dir="/u/fulford/cwf/pics"
+while [ $# -gt 0 ] ;do
+	case $1 in 
+		-c) config=$2;shift 2;;
+		-d) set -x;debug=0;shift;;
+		-v) verbose=:;shift;;
+		-V) echo "$cmd $Revision: 1.1 $ $Date: 2017/08/10 16:58:56 $"|			awk '{print $1,$3,$6}';exit;;  
+	esac
+done
+
+find $dir -name 000[0-9]*[^a-z+]\.xcf|
+awk -F/ '{print $NF}'|
+xargs basename -s .xcf|
+sort -n|awk 'END{printf("%07u",$1+1)}'
