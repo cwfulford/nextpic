@@ -1,14 +1,14 @@
 #!/bin/bash
-# $Id: nextpic,v 1.2 2017/11/23 12:25:31 fulford Exp fulford $
+# $Id: nextpic,v 1.3 2017/11/23 12:28:07 fulford Exp fulford $
 # $Source: /src/admin/usr/local/etc/RCS/nextpic,v $
-# $Revision: 1.2 $
+# $Revision: 1.3 $
 # Author C W Fulford.
 # Copyright 2016 (c) C W Fulford.
 # Licensed for public use under the LGPL, .
 # For assistance contact fulford@fulford.net 0793 572 8612
 ########################################################################
 cmd=`basename $0`
-ver=`echo "$Id: nextpic,v 1.2 2017/11/23 12:25:31 fulford Exp fulford $"|awk '{print $3,$4,$5}'`
+ver=`echo "$Id: nextpic,v 1.3 2017/11/23 12:28:07 fulford Exp fulford $"|awk '{print $3,$4,$5}'`
 syntax="$cmd [-c <configfile>] [-d] [-v]|-V"
 dir="/u/fulford/cwf/pics"
 while [ $# -gt 0 ] ;do
@@ -16,11 +16,11 @@ while [ $# -gt 0 ] ;do
 		-c) config=$2;shift 2;;
 		-d) set -x;debug=0;shift;;
 		-v) verbose=:;shift;;
-		-V) echo "$cmd $Revision: 1.2 $ $Date: 2017/11/23 12:25:31 $"|			awk '{print $1,$3,$6}';exit;;  
+		-V) echo "$cmd $Revision: 1.3 $ $Date: 2017/11/23 12:28:07 $"|			awk '{print $1,$3,$6}';exit;;  
 	esac
 done
 
 find $dir -name 000[0-9]*[^a-z+]\.[{png}{xcf}|
 awk -F/ '{print $NF}'|
-xargs basename -s .xcf|
+xargs basename -s .[{xcf}{png}]|
 sort -n|awk 'END{printf("%07u",$1+1)}'
