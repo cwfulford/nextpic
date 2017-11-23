@@ -1,14 +1,14 @@
 #!/bin/bash
-# $Id: nextpic,v 1.9 2017/11/23 19:22:38 fulford Exp fulford $
+# $Id: nextpic,v 1.10 2017/11/23 19:26:31 fulford Exp fulford $
 # $Source: /src/admin/usr/local/etc/RCS/nextpic,v $
-# $Revision: 1.9 $
+# $Revision: 1.10 $
 # Author C W Fulford.
 # Copyright 2016 (c) C W Fulford.
 # Licensed for public use under the LGPL, .
 # For assistance contact fulford@fulford.net 0793 572 8612
 ########################################################################
 cmd=`basename $0`
-ver=`echo "$Id: nextpic,v 1.9 2017/11/23 19:22:38 fulford Exp fulford $"|awk '{print $3,$4,$5}'`
+ver=`echo "$Id: nextpic,v 1.10 2017/11/23 19:26:31 fulford Exp fulford $"|awk '{print $3,$4,$5}'`
 syntax="$cmd [-c <configfile>] [-d] [-v] [#]|-V"
 tmp=/tmp/nextpic$$
 dir="/u/fulford/cwf/pics"
@@ -18,7 +18,7 @@ while [ $# -gt 0 ] ;do
 		-c) config=$2;shift 2;;
 		-d) set -x;debug=0;shift;;
 		-v) verbose=:;shift;;
-		-V) echo "$cmd $Revision: 1.9 $ $Date: 2017/11/23 19:22:38 $"|			awk '{print $1,$3,$6}';exit;;  
+		-V) echo "$cmd $Revision: 1.10 $ $Date: 2017/11/23 19:26:31 $"|			awk '{print $1,$3,$6}';exit;;  
 		[1-3]) hist=$1;shift;;
 	esac
 done
@@ -38,11 +38,12 @@ while [ $show -le $last ];do
 		showf=`printf "%07i\n" $show`
 		find $dir -name $showf.???|grep -v xcf >>$tmp
 	fi
+	echo $show
 	show=`expr $show + 1`
 done
 if [ $verbose ] ;then 
 	images=`tr '\n' ' ' <$tmp`
-	printf "next = %07i" $next
+	printf "next = %07i\n" $next
 	xv $images&
 else
 	printf "%07i\n" $next
