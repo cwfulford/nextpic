@@ -1,14 +1,14 @@
 #!/bin/bash
-# $Id: nextpic,v 1.7 2017/11/23 19:18:10 fulford Exp fulford $
+# $Id: nextpic,v 1.8 2017/11/23 19:21:13 fulford Exp fulford $
 # $Source: /src/admin/usr/local/etc/RCS/nextpic,v $
-# $Revision: 1.7 $
+# $Revision: 1.8 $
 # Author C W Fulford.
 # Copyright 2016 (c) C W Fulford.
 # Licensed for public use under the LGPL, .
 # For assistance contact fulford@fulford.net 0793 572 8612
 ########################################################################
 cmd=`basename $0`
-ver=`echo "$Id: nextpic,v 1.7 2017/11/23 19:18:10 fulford Exp fulford $"|awk '{print $3,$4,$5}'`
+ver=`echo "$Id: nextpic,v 1.8 2017/11/23 19:21:13 fulford Exp fulford $"|awk '{print $3,$4,$5}'`
 syntax="$cmd [-c <configfile>] [-d] [-v] [#]|-V"
 tmp=/tmp/nextpic$$
 dir="/u/fulford/cwf/pics"
@@ -18,7 +18,7 @@ while [ $# -gt 0 ] ;do
 		-c) config=$2;shift 2;;
 		-d) set -x;debug=0;shift;;
 		-v) verbose=:;shift;;
-		-V) echo "$cmd $Revision: 1.7 $ $Date: 2017/11/23 19:18:10 $"|			awk '{print $1,$3,$6}';exit;;  
+		-V) echo "$cmd $Revision: 1.8 $ $Date: 2017/11/23 19:21:13 $"|			awk '{print $1,$3,$6}';exit;;  
 		[1-3]) hist=$1;shift;;
 	esac
 done
@@ -32,8 +32,6 @@ sort -n|
 awk 'END{printf("%07u",$1)}'`
 next=`expr $last + 1`
 
-echo "hist = $hist"	
-echo "last = $last"
 show=`expr $last - $hist`
 while [ $show -le $last ];do
 	if [ $verbose ];then
