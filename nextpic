@@ -1,14 +1,14 @@
 #!/bin/bash
-# $Id: nextpic,v 1.6 2017/11/23 19:17:06 fulford Exp fulford $
+# $Id: nextpic,v 1.7 2017/11/23 19:18:10 fulford Exp fulford $
 # $Source: /src/admin/usr/local/etc/RCS/nextpic,v $
-# $Revision: 1.6 $
+# $Revision: 1.7 $
 # Author C W Fulford.
 # Copyright 2016 (c) C W Fulford.
 # Licensed for public use under the LGPL, .
 # For assistance contact fulford@fulford.net 0793 572 8612
 ########################################################################
 cmd=`basename $0`
-ver=`echo "$Id: nextpic,v 1.6 2017/11/23 19:17:06 fulford Exp fulford $"|awk '{print $3,$4,$5}'`
+ver=`echo "$Id: nextpic,v 1.7 2017/11/23 19:18:10 fulford Exp fulford $"|awk '{print $3,$4,$5}'`
 syntax="$cmd [-c <configfile>] [-d] [-v] [#]|-V"
 tmp=/tmp/nextpic$$
 dir="/u/fulford/cwf/pics"
@@ -18,7 +18,7 @@ while [ $# -gt 0 ] ;do
 		-c) config=$2;shift 2;;
 		-d) set -x;debug=0;shift;;
 		-v) verbose=:;shift;;
-		-V) echo "$cmd $Revision: 1.6 $ $Date: 2017/11/23 19:17:06 $"|			awk '{print $1,$3,$6}';exit;;  
+		-V) echo "$cmd $Revision: 1.7 $ $Date: 2017/11/23 19:18:10 $"|			awk '{print $1,$3,$6}';exit;;  
 		[1-3]) hist=$1;shift;;
 	esac
 done
@@ -50,4 +50,4 @@ if [ $verbose ] ;then
 else
 	printf "%07i\n" $next
 fi
-rm $tmp
+[ -f $tmp ] && rm $tmp
